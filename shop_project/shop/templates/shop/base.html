@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Інтернет-магазин{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="{% url 'index' %}" class="logo">Мій Магазин</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'index' %}">Головна</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'add_product' %}">Додати продукт</a></li>
+                        <li><a href="{% url 'logout' %}">Вийти ({{ user.username }})</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Увійти</a></li>
+                        <li><a href="{% url 'register' %}">Реєстрація</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Інтернет-магазин. Всі права захищені.</p>
+    </footer>
+</body>
+</html>
