@@ -13,7 +13,7 @@
             <div class="container">
                 <a href="{% url 'index' %}" class="logo">Мій Магазин</a>
                 <ul class="nav-links">
-                    <li><a href="{% url 'index' %}">Головна</a></li>
+                    <li><a href="{% url 'shop:index' %}">Головна</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'add_product' %}">Додати продукт</a></li>
                         <li><a href="{% url 'logout' %}">Вийти ({{ user.username }})</a></li>
