@@ -2,14 +2,17 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout
 from .models import Product, Category
 from .forms import ProductForm
 from django.shortcuts import render
 
+
 def index(request):
-    return render(request, 'shop/index.html')
+    products = Product.objects.all()
+    categories = Category.objects.all()  # Отримуємо всі категорії
+    return render(request, 'shop/index.html', {'products': products, 'categories': categories})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -51,13 +54,30 @@ def delete_product(request, pk):
     product.delete()
     return redirect('index')
 
-def register(request):
-    if request.method == 'POST':
+def register_view(request):
+    if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('index')
+            form.save()
+            return redirect("index")
     else:
         form = UserCreationForm()
-    return render(request, 'shop/register.html', {'form': form})
+    return render(request, "shop/register.html", { "form": form })
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('index')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'shop/login.html', { 'form': form })
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("/")
