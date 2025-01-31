@@ -10,9 +10,8 @@ from django.shortcuts import render
 
 
 def index(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()  # Отримуємо всі категорії
-    return render(request, 'shop/index.html', {'products': products, 'categories': categories})
+    categories = Category.objects.all()  
+    return render(request, 'shop/index.html', {'categories': categories})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -31,7 +30,7 @@ def add_product(request):
             product = form.save(commit=False)
             product.created_by = request.user
             product.save()
-            return redirect('index')
+            return redirect('shop:index')
     else:
         form = ProductForm()
     return render(request, 'shop/add_product.html', {'form': form})
@@ -43,7 +42,7 @@ def edit_product(request, pk):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('product_detail', pk=product.pk)
+            return redirect('shop:product_detail', pk=product.pk)
     else:
         form = ProductForm(instance=product)
     return render(request, 'shop/edit_product.html', {'form': form})
@@ -52,14 +51,14 @@ def edit_product(request, pk):
 def delete_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
     product.delete()
-    return redirect('index')
+    return redirect('shop:index')
 
 def register_view(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("index")
+            return redirect("shop:index")
     else:
         form = UserCreationForm()
     return render(request, "shop/register.html", { "form": form })
@@ -72,7 +71,7 @@ def login_view(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-                return redirect('index')
+                return redirect('shop:index')
     else:
         form = AuthenticationForm()
     return render(request, 'shop/login.html', { 'form': form })

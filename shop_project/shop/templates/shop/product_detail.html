@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav class="nav-container">
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'shop:add_product' %}">➕ Додати продукт</a> |
+                <a href="{% url 'shop:index' %}">🏠 На головну</a>
+            {% endif %}
+        </div>
+        <div>
+            {% if not user.is_authenticated %}
+                <a class="nav-auth" href="{% url 'shop:login' %}">Увійти</a>
+                <a class="nav-auth" href="{% url 'shop:register' %}">Реєстрація</a>
+            {% else %}
+                <form class="logout" action="{% url 'shop:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button nav-auth">Вийти</button>
+                </form>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="product-details container">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <div class="product-image">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
+        <div class="product-info">
+            <p class="product-description">{{ product.description }}</p>
+            <p class="product-price"><strong>Price:</strong> ${{ product.price }}</p>
+            <p class="product-category">
+                <strong>Category:</strong> <a href="{% url 'shop:category_detail' product.category.slug %}">{{ product.category.name }}</a>
+            </p>
+        </div>
+
+        {% if user == product.created_by %}
+            <div class="product-actions">
+                <a href="{% url 'shop:edit_product' product.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'shop:delete_product' product.pk %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додати продукт</title>
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav class="nav-container">
+        <div>
+            <a href="{% url 'shop:index' %}">🏠 На головну</a>
+
+        </div>
+        <div>
+            {% if not user.is_authenticated %}
+                <a class="nav-auth" href="{% url 'shop:login' %}">Увійти</a>
+                <a class="nav-auth" href="{% url 'shop:register' %}">Реєстрація</a>
+            {% else %}
+                <form class="logout" action="{% url 'shop:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button nav-auth">Вийти</button>
+                </form>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="add-product-container container">
+        <h1 class="text-center mb-4">Додати новий продукт</h1>
+        <form method="POST" enctype="multipart/form-data" class="add-product-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Назва продукту</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Опис продукту</label>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Ціна</label>
+                {{ form.price }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Зображення</label>
+                {{ form.image }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Категорія</label>
+                {{ form.category }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">Додати продукт</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

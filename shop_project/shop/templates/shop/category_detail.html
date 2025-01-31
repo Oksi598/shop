@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+    <title>
+        {% block title %}{{ category.name }} - Products{% endblock %}
+    </title>
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div>
+            <a href="{% url 'shop:index' %}">🏠 На головну</a>
+
+        </div>
+        <div>
+            {% if not user.is_authenticated %}
+                <a class="nav-auth" href="{% url 'shop:login' %}">Увійти</a>
+                <a class="nav-auth" href="{% url 'shop:register' %}">Реєстрація</a>
+            {% else %}
+                <form class="logout" action="{% url 'shop:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button nav-auth">Вийти</button>
+                </form>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1 class="text-center text-primary">{{ category.name }}</h1>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <a href="{% url 'shop:product_detail' product.pk %}" class="btn btn-primary">Показати деталі</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <nav class="nav-container">
+        <a href="{% url 'shop:index' %}">🏠 На головну</a>
+    </nav>
+    
+    <div class="auth-container">
+        <h1>Увійти</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Увійти</button>
+        </form>
+        <p>Ще не маєте акаунту? <a href="{% url 'shop:register' %}">Зареєструватися</a></p>
+    </div>
+</body>
+</html>

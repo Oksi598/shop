@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40;
+    padding: 10px 20px;
+    color: white;
+}
+
+.nav-container a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.nav-container a:hover {
+    text-decoration: underline;
+}
+
+.nav-auth {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white !important;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav-auth:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    border: none;
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.edit-product-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.edit-product-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input[type="file"] {
+    padding: 5px;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.form-actions .btn {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.form-actions .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.form-actions .btn-success:hover {
+    background-color: #218838;
+}
+
+
+@media (max-width: 768px) {
+    .edit-product-container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}

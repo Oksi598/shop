@@ -1,8 +1,57 @@
-{% extends 'shop/base.html' %}
-
-{% block content %}
-    <div>
-        <h1>Ласкаво просимо до нашого інтернет-магазину!</h1>
-        <p>Оберіть категорію для перегляду товарів:</p>
-    </div>
-{% endblock %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="{% static 'js/main.js' %}" defer></script>
+        <title>
+            {% block title %}
+                Інтернет-магазин
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <nav class="nav-container">
+            <div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'shop:add_product' %}">➕ Додати продукт</a> |
+                {% endif %}
+            </div>
+            <div>
+                {% if not user.is_authenticated %}
+                    <a  
+                        class="nav-auth"
+                        href="{% url 'shop:login' %}">
+                    Увійти</a>
+                    <a  
+                        class="nav-auth"
+                        href="{% url 'shop:register' %}">
+                    Реєстрація</a>
+                {% else %}
+                    <form class="logout" action="{% url 'shop:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="logout-button nav-auth">Вийти</button>
+                    </form>
+                {% endif %}
+            </div>    
+        </nav>
+        <main>
+            {% block content %}
+            <div class="categories">
+                <h3>Категорії</h3>
+                <ul>
+                    {% for category in categories %}
+                        <li>
+                            <a href="{% url 'shop:category_detail' category.slug %}">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endblock %}
+        </main>
+    </body>
+</html>

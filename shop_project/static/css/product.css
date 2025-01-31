@@ -1,0 +1,146 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40;
+    padding: 10px 20px;
+    color: white;
+}
+
+.nav-container a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.nav-container a:hover {
+    text-decoration: underline;
+}
+
+.nav-auth {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white !important;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav-auth:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    border: none;
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.product-details {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.product-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-info {
+    margin-top: 20px;
+}
+
+.product-description {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.product-price {
+    font-size: 1.2em;
+    color: #007bff;
+    margin-top: 10px;
+}
+
+.product-category a {
+    color: #007bff;
+}
+
+.product-category a:hover {
+    text-decoration: underline;
+}
+
+.product-actions {
+    margin-top: 20px;
+}
+
+.product-actions .btn {
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.product-actions .btn-warning {
+    background-color: #ffc107;
+    color: white;
+    margin-right: 10px;
+}
+
+.product-actions .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.product-actions .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.product-actions .btn-danger:hover {
+    background-color: #c82333;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .product-details {
+        padding: 15px;
+    }
+
+    .product-title {
+        font-size: 1.5em;
+    }
+}
